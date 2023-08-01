@@ -11,7 +11,7 @@ public class ArrayTasks {
      * Return a String[] array that will list all the seasons of the year, starting with winter.
      */
     public String[] seasonsArray() {
-        return null;
+        return new String[]{"winter", "spring", "summer", "autumn"};
     }
 
     /**
@@ -23,7 +23,11 @@ public class ArrayTasks {
      * length = 1  -> [1] length = 3  -> [1, 2, 3] length = 5  -> [1, 2, 3, 4, 5]
      */
     public int[] generateNumbers(int length) {
-        return null;
+        int[] numbers = new int[length];
+        for (int i = 0; i < numbers.length; i++) {
+            numbers[i] = i+1;
+        }
+        return numbers;
     }
 
     /**
@@ -34,7 +38,11 @@ public class ArrayTasks {
      * arr = [1, 3, 5]   -> sum = 9 arr = [5, -3, -4] -> sum = -2
      */
     public int totalSum(int[] arr) {
-        return 0;
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+        }
+        return sum;
     }
 
     /**
@@ -46,7 +54,12 @@ public class ArrayTasks {
      * arr = [99, -7, 102], number = -7    ->   2 arr = [5, -3, -4],   number = 10    ->  -1
      */
     public int findIndexOfNumber(int[] arr, int number) {
-        return 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == number) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -58,7 +71,15 @@ public class ArrayTasks {
      * "pineapple"]
      */
     public String[] reverseArray(String[] arr) {
-        return null;
+        String[] reverse = arr;
+        int l = reverse.length;
+        for (int i = 0; i < l / 2; i++) {
+            String tmp;
+            tmp = reverse[i];
+            reverse[i] = reverse[l-1-i];
+            reverse[l-1-i] = tmp;
+        }
+        return reverse;
     }
 
     /**
@@ -70,7 +91,23 @@ public class ArrayTasks {
      * arr = [1,-2, 3]      -> [1, 3] arr = [-1, -2, -3]   -> [] arr = [1, 2]         -> [1, 2]
      */
     public int[] getOnlyPositiveNumbers(int[] arr) {
-        return null;
+        int positiveCounter = 0;
+        //подсчет количества положительных чисел (значение positiveCounter) в начальном массиве
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i]>0)
+                positiveCounter++;
+        }
+        //размещение положительных чисел в новом массиве
+        int[] positiveNumbers = new int[positiveCounter];
+        int newPlace = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > 0) {
+                positiveNumbers[newPlace] = arr[i];
+                newPlace++;
+            }
+        }
+        return positiveNumbers;
+
     }
 
     /**
@@ -83,7 +120,39 @@ public class ArrayTasks {
      * arr = [[3, 1, 2,], [3,2]] -> [[2, 3], [1, 2, 3]] arr = [[5, 4], [7]]       -> [[7], [4, 5]]
      */
     public int[][] sortRaggedArray(int[][] arr) {
-        return null;
-    }
+        // сортировка вложенных массивов по возрастанию значений
+        for (int i = 0; i < arr.length; i++) {
+            boolean isSorted = false;
+            int steps = 0;
+            while(!isSorted) {
+                isSorted = true;
+                for (int j = 1; j < arr[i].length-steps; j++) {
+                    if (arr[i][j] < arr[i][j-1]) {
+                        int tmp = arr[i][j];
+                        arr[i][j] = arr[i][j-1];
+                        arr[i][j-1] = tmp;
+                        isSorted = false;
+                    }
+                }
+                steps++;
+            }
+        }
+        //сортировка массива по длине вложенных массивов
+        boolean isSorted = false;
+        int steps = 0;
+        while (!isSorted) {
+            isSorted = true;
+            for (int i = 1; i < arr.length - steps; i++) {
+                if (arr[i].length < arr[i-1].length) {
+                    int[] tmp = arr[i];
+                    arr[i] = arr[i-1];
+                    arr[i-1] = tmp;
+                    isSorted = false;
+                }
+            }
+            steps++;
+        }
 
+        return arr;
+    }
 }
